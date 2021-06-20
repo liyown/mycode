@@ -1,0 +1,32 @@
+|sled_4
+clk => a[0].CLK
+clk => a[1].CLK
+clk => b[0].CLK
+clk => b[1].CLK
+clk => b[2].CLK
+clk => b[3].CLK
+clk => b[4].CLK
+clk => b[5].CLK
+clk => b[6].CLK
+clk => b[7].CLK
+clk => b[8].CLK
+clk => b[9].CLK
+clk => b[10].CLK
+LED7S[0] <= LED7S.DB_MAX_OUTPUT_PORT_TYPE
+LED7S[1] <= <GND>
+LED7S[2] <= Decoder0.DB_MAX_OUTPUT_PORT_TYPE
+LED7S[3] <= LED7S.DB_MAX_OUTPUT_PORT_TYPE
+LED7S[4] <= Decoder0.DB_MAX_OUTPUT_PORT_TYPE
+LED7S[5] <= Decoder0.DB_MAX_OUTPUT_PORT_TYPE
+LED7S[6] <= Decoder0.DB_MAX_OUTPUT_PORT_TYPE
+LED7S[7] <= <VCC>
+dig[0] <= Decoder0.DB_MAX_OUTPUT_PORT_TYPE
+dig[1] <= Decoder0.DB_MAX_OUTPUT_PORT_TYPE
+dig[2] <= Decoder0.DB_MAX_OUTPUT_PORT_TYPE
+dig[3] <= Decoder0.DB_MAX_OUTPUT_PORT_TYPE
+dig[4] <= <VCC>
+dig[5] <= <VCC>
+dig[6] <= <VCC>
+dig[7] <= <VCC>
+
+

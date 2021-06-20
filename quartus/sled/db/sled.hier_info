@@ -1,0 +1,23 @@
+|sled
+A[0] => Decoder0.IN3
+A[1] => Decoder0.IN2
+A[2] => Decoder0.IN1
+A[3] => Decoder0.IN0
+LED7S[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+LED7S[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+LED7S[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+LED7S[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+LED7S[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+LED7S[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+LED7S[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+LED7S[7] <= <VCC>
+dig[0] <= <GND>
+dig[1] <= <VCC>
+dig[2] <= <VCC>
+dig[3] <= <VCC>
+dig[4] <= <VCC>
+dig[5] <= <VCC>
+dig[6] <= <VCC>
+dig[7] <= <VCC>
+
+

@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Thu Oct 29 19:32:27 2020
+Quartus II 64-Bit Version : 9.1 Build 222 10/21/2009 SJ Full Version
+Revision Name : fsm_template
+Top-level Entity Name : fsm_template
+Family : Cyclone II
+Total logic elements : 4
+    Total combinational functions : 4
+    Dedicated logic registers : 4
+Total registers : 4
+Total pins : 4
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

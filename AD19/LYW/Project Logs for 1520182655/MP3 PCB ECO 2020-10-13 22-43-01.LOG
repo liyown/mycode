@@ -1,0 +1,5 @@
+Added Pin To Net: NetName=P5.1 Pin=U111-80
+Change Net Name : Old Net Name=NetLabel84 New Net Name=IDE RST
+Change Net Name : Old Net Name=NetLabel86 New Net Name=LCD EL
+Change Net Name : Old Net Name=NetLabel87 New Net Name=LCD RST
+Added Room: Name=MP3

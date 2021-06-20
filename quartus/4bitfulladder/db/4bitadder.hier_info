@@ -1,0 +1,49 @@
+|4bitadder
+cout <= fulladder:inst.s
+a3 => fulladder:inst.a
+b3 => fulladder:inst.b
+a2 => fulladder:inst1.a
+b2 => fulladder:inst1.b
+a1 => fulladder:inst2.a
+b1 => fulladder:inst2.b
+a0 => fulladder:inst3.a
+b0 => fulladder:inst3.b
+cin => fulladder:inst3.cin
+s3 <= fulladder:inst.cout
+s2 <= fulladder:inst1.s
+s1 <= fulladder:inst2.cout
+s0 <= fulladder:inst3.s
+
+
+|4bitadder|fulladder:inst
+a => Add0.IN1
+b => Add0.IN2
+cin => Add1.IN4
+s <= Add1.DB_MAX_OUTPUT_PORT_TYPE
+cout <= Add1.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|4bitadder|fulladder:inst1
+a => Add0.IN1
+b => Add0.IN2
+cin => Add1.IN4
+s <= Add1.DB_MAX_OUTPUT_PORT_TYPE
+cout <= Add1.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|4bitadder|fulladder:inst2
+a => Add0.IN1
+b => Add0.IN2
+cin => Add1.IN4
+s <= Add1.DB_MAX_OUTPUT_PORT_TYPE
+cout <= Add1.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|4bitadder|fulladder:inst3
+a => Add0.IN1
+b => Add0.IN2
+cin => Add1.IN4
+s <= Add1.DB_MAX_OUTPUT_PORT_TYPE
+cout <= Add1.DB_MAX_OUTPUT_PORT_TYPE
+
+

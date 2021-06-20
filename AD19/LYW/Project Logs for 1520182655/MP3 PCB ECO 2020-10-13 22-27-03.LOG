@@ -1,0 +1,40 @@
+Change Component Comment : Designator= Old Comment=MAX232CSE(16) New Comment=
+Change Component Designator: OldDesignator=* NewDesignator=U111
+Change Component Designator: OldDesignator= NewDesignator=U11
+Added Pin To Net: NetName=NetJ1_2 Pin=J1-2
+Added Pin To Net: NetName=NetR25_1 Pin=U7-10
+Change Net Name : Old Net Name=Net*_1 New Net Name=NetU2_11
+Change Net Name : Old Net Name=Net*_2 New Net Name=NetS1_1
+Change Net Name : Old Net Name=Net*_3 New Net Name=NetJ6_6
+Change Net Name : Old Net Name=Net*_4 New Net Name=NetJ6_5
+Change Net Name : Old Net Name=Net*_5 New Net Name=NetJ6_4
+Change Net Name : Old Net Name=Net*_6 New Net Name=NetJ6_3
+Change Net Name : Old Net Name=Net*_7 New Net Name=NetJ6_2
+Change Net Name : Old Net Name=Net*_8 New Net Name=NetJ6_1
+Change Net Name : Old Net Name=Net*_13 New Net Name=NetC12_2
+Change Net Name : Old Net Name=Net*_16 New Net Name=NetC10_2
+Change Net Name : Old Net Name=Net*_17 New Net Name=NetC9_2
+Change Net Name : Old Net Name=Net*_21 New Net Name=NetR37_1
+Change Net Name : Old Net Name=Net*_22 New Net Name=NetR38_1
+Change Net Name : Old Net Name=Net*_32 New Net Name=NetR24_1
+Change Net Name : Old Net Name=Net*_35 New Net Name=NetJ4_5
+Change Net Name : Old Net Name=Net*_36 New Net Name=NetJ4_4
+Change Net Name : Old Net Name=Net*_37 New Net Name=NetJ4_3
+Change Net Name : Old Net Name=Net*_38 New Net Name=NetJ4_2
+Change Net Name : Old Net Name=Net*_43 New Net Name=NetU10_1
+Change Net Name : Old Net Name=Net*_44 New Net Name=NetU10_2
+Change Net Name : Old Net Name=Net*_45 New Net Name=NetU10_3
+Change Net Name : Old Net Name=Net*_46 New Net Name=NetU10_4
+Change Net Name : Old Net Name=Net*_47 New Net Name=NetC4_0
+Change Net Name : Old Net Name=Net*_48 New Net Name=NetJ4_8
+Change Net Name : Old Net Name=Net*_49 New Net Name=NetJ4_7
+Change Net Name : Old Net Name=Net*_50 New Net Name=NetJ4_6
+Change Net Name : Old Net Name=Net*_59 New Net Name=NetJ8_4
+Change Net Name : Old Net Name=Net*_60 New Net Name=NetJ8_3
+Change Net Name : Old Net Name=Net*_61 New Net Name=NetJ8_2
+Change Net Name : Old Net Name=Net*_62 New Net Name=NetJ8_1
+Change Net Name : Old Net Name=Net*_65 New Net Name=NetJ8_5
+Change Net Name : Old Net Name=Net*_66 New Net Name=NetJ8_6
+Change Net Name : Old Net Name=Net*_67 New Net Name=NetJ8_7
+Change Net Name : Old Net Name=Net*_68 New Net Name=NetJ8_8
+Added Room: Name=MP3

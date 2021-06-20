@@ -1,0 +1,53 @@
+|muxk
+outy <= mux21a:inst2.y
+clk => fenpin:inst.clkin
+s0 => mux21a:inst1.s
+s1 => mux21a:inst2.s
+
+
+|muxk|mux21a:inst2
+a => y~0.DATAB
+b => y~0.DATAA
+s => y~0.OUTPUTSELECT
+y <= y~0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|muxk|fenpin:inst
+clkin => qout[0].CLK
+clkin => qout[1].CLK
+clkin => qout[2].CLK
+clkin => qout[3].CLK
+clkin => qout[4].CLK
+clkin => qout[5].CLK
+clkin => qout[6].CLK
+clkin => qout[7].CLK
+clkin => qout[8].CLK
+clkin => qout[9].CLK
+clkin => qout[10].CLK
+clkin => qout[11].CLK
+clkin => qout[12].CLK
+clkin => qout[13].CLK
+clkin => qout[14].CLK
+clkin => qout[15].CLK
+clkin => qout[16].CLK
+clkin => qout[17].CLK
+clkin => qout[18].CLK
+clkin => qout[19].CLK
+clkin => qout[20].CLK
+clkin => qout[21].CLK
+clkin => qout[22].CLK
+clkin => qout[23].CLK
+clkin => qout[24].CLK
+clkin => qout[25].CLK
+clk6hz <= qout[23].DB_MAX_OUTPUT_PORT_TYPE
+clk190hz <= qout[18].DB_MAX_OUTPUT_PORT_TYPE
+clk760hz <= qout[16].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|muxk|mux21a:inst1
+a => y~0.DATAB
+b => y~0.DATAA
+s => y~0.OUTPUTSELECT
+y <= y~0.DB_MAX_OUTPUT_PORT_TYPE
+
+

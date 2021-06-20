@@ -1,0 +1,69 @@
+Added Component: Designator=U6A(74HC00)
+Add component. Clean all parameters for all variants
+Added Component: Designator=U6B(74HC00)
+Add component. Clean all parameters for all variants
+Added Component: Designator=U6D(74HC00)
+Add component. Clean all parameters for all variants
+Added Component: Designator=U8(U8)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=U9(U8)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetJ10_16 Pin=U6A-1
+Added Pin To Net: NetName=LCD  CS1 Pin=U6A-2
+Added Pin To Net: NetName=LCD  CS1 Pin=U6A-3
+Added Pin To Net: NetName=NetJ10_15 Pin=U6B-1
+Added Pin To Net: NetName=LCD  CS2 Pin=U6B-2
+Added Pin To Net: NetName=LCD  CS2 Pin=U6B-3
+Added Pin To Net: NetName=Net*_32 Pin=U6D-2
+Added Pin To Net: NetName=A11 Pin=U6D-3
+Added Pin To Net: NetName=D0 Pin=U8-1
+Added Pin To Net: NetName=D1 Pin=U8-3
+Added Pin To Net: NetName=D2 Pin=U8-5
+Added Pin To Net: NetName=D3 Pin=U8-7
+Added Pin To Net: NetName=D4 Pin=U8-9
+Added Pin To Net: NetName=D5 Pin=U8-11
+Added Pin To Net: NetName=D6 Pin=U8-13
+Added Pin To Net: NetName=D7 Pin=U8-15
+Added Pin To Net: NetName=A0 Pin=U8-17
+Added Pin To Net: NetName=A1 Pin=U8-19
+Added Pin To Net: NetName=PRE Pin=U8-21
+Added Pin To Net: NetName=FWE Pin=U8-23
+Added Pin To Net: NetName=VCC Pin=U8-25
+Added Pin To Net: NetName=FRB Pin=U8-27
+Added Pin To Net: NetName=FCE1 Pin=U8-29
+Added Pin To Net: NetName=FPRE Pin=U8-31
+Added Pin To Net: NetName=D0 Pin=U9-1
+Added Pin To Net: NetName=D1 Pin=U9-3
+Added Pin To Net: NetName=D2 Pin=U9-5
+Added Pin To Net: NetName=D3 Pin=U9-7
+Added Pin To Net: NetName=D4 Pin=U9-9
+Added Pin To Net: NetName=D5 Pin=U9-11
+Added Pin To Net: NetName=D6 Pin=U9-13
+Added Pin To Net: NetName=D7 Pin=U9-15
+Added Pin To Net: NetName=A0 Pin=U9-17
+Added Pin To Net: NetName=A1 Pin=U9-19
+Added Pin To Net: NetName=PRE Pin=U9-21
+Added Pin To Net: NetName=FWE Pin=U9-23
+Added Pin To Net: NetName=VCC Pin=U9-25
+Added Pin To Net: NetName=FRB Pin=U9-27
+Added Pin To Net: NetName=FCE1 Pin=U9-29
+Added Pin To Net: NetName=FPRE Pin=U9-31
+Change Net Name : Old Net Name=NetLabel1 New Net Name=DD8
+Change Net Name : Old Net Name=NetLabel3 New Net Name=DD9
+Change Net Name : Old Net Name=NetLabel4 New Net Name=DD10
+Change Net Name : Old Net Name=NetLabel5 New Net Name=DD11
+Change Net Name : Old Net Name=NetLabel6 New Net Name=DD12
+Change Net Name : Old Net Name=NetLabel7 New Net Name=DD13
+Change Net Name : Old Net Name=NetLabel8 New Net Name=DD14
+Change Net Name : Old Net Name=NetLabel9 New Net Name=DD15
+Added Member To Class: ClassName=MP3 Member=Component U6A 74HC00
+Added Member To Class: ClassName=MP3 Member=Component U6B 74HC00
+Added Member To Class: ClassName=MP3 Member=Component U6D 74HC00
+Added Member To Class: ClassName=MP3 Member=Component U8 K9FXX08UOD
+Added Member To Class: ClassName=MP3 Member=Component U9 K9FXX08UOD

@@ -1,0 +1,5 @@
+
+State Machine - |fsm_ck11|state
+Name state.S1 
+state.S0 0 
+state.S1 1 

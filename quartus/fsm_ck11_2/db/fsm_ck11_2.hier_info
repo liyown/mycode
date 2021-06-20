@@ -1,0 +1,9 @@
+|fsm_ck11_2
+out <= out~0.DB_MAX_OUTPUT_PORT_TYPE
+clk => state~5.DATAIN
+rst => state~9.DATAIN
+T => next_state.S1.DATAB
+T => Selector0.IN1
+T => state.S0~0.DATAIN
+
+
