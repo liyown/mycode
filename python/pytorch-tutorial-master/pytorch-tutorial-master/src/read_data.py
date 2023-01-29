@@ -41,7 +41,6 @@ class MyData(Dataset):
     def __len__(self):
         assert len(self.image_list) == len(self.label_list)
         return len(self.image_list)
-
 if __name__ == '__main__':
     transform = transforms.Compose([transforms.Resize((256, 256)), transforms.ToTensor()])
     root_dir = "dataset/train"

@@ -3,12 +3,13 @@
 # 公众号：土堆碎念
 import torch
 import torchvision
-from torch.utils.tensorboard import SummaryWriter
+
 
 # from model import *
 # 准备数据集
 from torch import nn
 from torch.utils.data import DataLoader
+from torch.utils.tensorboard import SummaryWriter
 
 train_data = torchvision.datasets.CIFAR10(root="../data", train=True, transform=torchvision.transforms.ToTensor(),
                                           download=True)
@@ -24,8 +25,8 @@ print("测试数据集的长度为：{}".format(test_data_size))
 
 
 # 利用 DataLoader 来加载数据集
-train_dataloader = DataLoader(train_data, batch_size=64)
-test_dataloader = DataLoader(test_data, batch_size=64)
+train_dataloader = DataLoader(train_data, batch_size=100,shuffle=True)
+test_dataloader = DataLoader(test_data, batch_size=100)
 
 # 创建网络模型
 class Tudui(nn.Module):
@@ -58,7 +59,7 @@ if torch.cuda.is_available():
 # learning_rate = 0.01
 # 1e-2=1 x (10)^(-2) = 1 /100 = 0.01
 learning_rate = 1e-2
-optimizer = torch.optim.SGD(tudui.parameters(), lr=learning_rate)
+optimizer = torch.optim.Adam(tudui.parameters(), lr=0.001, betas=(0.9, 0.999), eps=1e-08, weight_decay=0)
 
 # 设置训练网络的一些参数
 # 记录训练的次数
@@ -66,7 +67,7 @@ total_train_step = 0
 # 记录测试的次数
 total_test_step = 0
 # 训练的轮数
-epoch = 10
+epoch = 200
 
 # 添加tensorboard
 writer = SummaryWriter("../logs_train")
@@ -77,7 +78,12 @@ for i in range(epoch):
     # 训练步骤开始
     tudui.train()
     for data in train_dataloader:
-        imgs, targets = data
+        imgs, target = data
+
+        targets = torch.zeros(100*10).view(100, 10)
+        for j in range(100):
+            targets[j][target[j]] = 1
+
         if torch.cuda.is_available():
             imgs = imgs.cuda()
             targets = targets.cuda()

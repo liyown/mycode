@@ -11,6 +11,7 @@ dataset = torchvision.datasets.CIFAR10("../data", train=False, transform=torchvi
 
 dataloader = DataLoader(dataset, batch_size=1)
 
+
 class Tudui(nn.Module):
     def __init__(self):
         super(Tudui, self).__init__()
@@ -37,4 +38,6 @@ for data in dataloader:
     imgs, targets = data
     outputs = tudui(imgs)
     result_loss = loss(outputs, targets)
+    result_loss.backword()
     print("ok")
+
