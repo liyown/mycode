@@ -1,7 +1,12 @@
 import torch.nn
 import torchvision
+from torch import nn
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
+import time
+
+from tqdm import tqdm
+
 transform=torchvision.transforms.Compose([
                                          torchvision.transforms.ToTensor(),
                                          torchvision.transforms.Normalize(mean=[0.485, 0.456, 0.406],
@@ -9,37 +14,49 @@ transform=torchvision.transforms.Compose([
                                          )
 train_dataset = torchvision.datasets.CIFAR10("../data", train=True, transform=transform, download=True)
 eval_dataset = torchvision.datasets.CIFAR10("../data", train=False, transform=transform, download=True)
-train_dataloard = DataLoader(train_dataset, batch_size=1024, shuffle=True)
-eval_dataloard = DataLoader(eval_dataset, batch_size=1024, shuffle=True)
+train_dataloard = DataLoader(train_dataset, batch_size=256, shuffle=True)
+eval_dataloard = DataLoader(eval_dataset, batch_size=256, shuffle=True)
 
-resnet = torchvision.models.resnet34().cuda()
+resnet = torchvision.models.resnet18().cuda()
+resnet.conv1 = torch.nn.Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+resnet.maxpool = nn.MaxPool2d(kernel_size=3, stride=1, padding=1)
+resnet.fc = torch.nn.Sequential(nn.Dropout(0.1),
+                                nn.Linear(in_features=512, out_features=10, bias=True))
 
+resnet = resnet.cuda()
+print(resnet)
 loss_fn = torch.nn.CrossEntropyLoss().cuda()
-
-optimizer = torch.optim.Adam(resnet.parameters(), 1e-3, (0.99, 0.999), eps=1e-8)
-
+lr = 0.005
+optimizer = torch.optim.SGD(resnet.parameters(), lr=lr, momentum=0.9, weight_decay=5e-4)
 write = SummaryWriter("../logs_resnet")
-train_step = 0
-eval_step = 0
-
-for epoch in range(100):
+train_step = eval_step = pre_epoch = 21
+for epoch in range(pre_epoch, 100):
+    start_time = time.time()
     train_accuracy = 0
     train_loss = 0
     print("-----------epoch {}-----------".format(epoch))
     resnet.train()
-    for data in train_dataloard:
+    resnet.load_state_dict(torch.load("../model_params/resnet.pth"))
+    for data in tqdm(train_dataloard, leave=False):
+
         img, label = data
         img, label = img.cuda(), label.cuda()
         output = resnet(img)
         loss = loss_fn(output, label)
-
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
+
         accuracy = (output.argmax(1) == label).sum()
         train_accuracy = train_accuracy + accuracy
         train_loss = train_loss + loss.item()
-
+    # if epoch % 50 == 0:
+    #     lr = optimizer.state_dict()['param_groups'][0]['lr'] * (0.1 ** (epoch // 50))
+    #     for params in optimizer.param_groups:
+    #         params['lr'] = lr
+    end_time = time.time()
+    print(end_time - start_time)
+    torch.save(resnet.state_dict(), "../model_params/resnet.pth")
     print("train_accuracy {}".format(train_accuracy / len(train_dataset)))
     print("train_loss {}".format(train_loss / len(train_dataloard)))
     write.add_scalar("train_loss", train_loss / len(train_dataloard), train_step)
@@ -67,3 +84,5 @@ for epoch in range(100):
         write.add_scalar("eval_accuracy", eval_accuracy / len(eval_dataset), eval_step)
 
         eval_step = eval_step + 1
+
+

@@ -43,11 +43,14 @@ class Tudui(nn.Module):
             nn.Linear(64*4*4, 64),
             nn.Linear(64, 10)
         )
+        self.relu = nn.ReLU()
 
     def forward(self, x):
         x = self.model(x)
+        x=self.relu(x)
         return x
 tudui = Tudui()
+print(tudui)
 if torch.cuda.is_available():
     tudui = tudui.cuda()
 
