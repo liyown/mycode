@@ -10,7 +10,7 @@ from tqdm import tqdm
 from torchvision.transforms import transforms
 from torch import nn, optim
 from torch.utils.data import DataLoader
-from torchvision.datasets import CIFAR10
+from torchvision.datasets import CIFAR10, CIFAR100
 from torch.utils.tensorboard import SummaryWriter
 
 if __name__ == "__main__":
@@ -22,7 +22,7 @@ if __name__ == "__main__":
     device = torch.device("cuda")
 
     #  训练总轮数
-    total_epochs = 250
+    total_epochs = 500
     # 每次取出样本数
     batch_size = 512
     # 初始学习率
@@ -30,8 +30,9 @@ if __name__ == "__main__":
 
     DATASET_PATH = '../data'
     SAVE_PATH = '../model_params'
-    filename = '{}/best_cnn_model'.format(SAVE_PATH)  # 文件扩展名在保存时添加
-
+    data_name = "CIFAR100"
+    best_filename = '{}/{}_best_cnn_model'.format(SAVE_PATH,data_name)  # 文件扩展名在保存时添加
+    now_filename = '{}/{}_now_cnn_model'.format(SAVE_PATH, data_name)
     # 准备数据
     data_transforms = {
         'train': transforms.Compose([
@@ -39,7 +40,6 @@ if __name__ == "__main__":
             , transforms.Cutout(n_holes=1, length=16)
             , transforms.RandomCrop(32, padding=8)  # 先四周填充0，在吧图像随机裁剪成32*32
             , transforms.RandomHorizontalFlip(p=0.5)  # 随机水平翻转 选择一个概率概率
-
             , transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])  # 均值，标准差
         ]),
         'valid': transforms.Compose([
@@ -49,7 +49,7 @@ if __name__ == "__main__":
     }
     # 准备数据 这里将训练集和验证集写到了一个list里 否则后面的训练与验证阶段重复代码太多
     image_datasets = {
-        x: CIFAR10(DATASET_PATH, train=True if x == 'train' else False,
+        x: CIFAR100(DATASET_PATH, train=True if x == 'train' else False,
                    transform=data_transforms[x], download=True) for x in ['train', 'valid']}
 
     dataloaders: dict = {
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     model_ft.conv1 = nn.Conv2d(3, 64, 3, stride=1, padding=1, bias=False)  # 首层改成3x3卷积核
     model_ft.maxpool = nn.MaxPool2d(1, 1, 0)  # 图像太小 本来就没什么特征 所以这里通过1x1的池化核让池化层失效
     num_ftrs = model_ft.fc[0].in_features  # 获取（fc）层的输入的特征数
-    model_ft.fc = nn.Linear(num_ftrs, 10, bias=True)
+    model_ft.fc = nn.Linear(num_ftrs, 100, bias=True)
 
     model_ft.to(device)
     # 创建损失函数
@@ -90,8 +90,8 @@ if __name__ == "__main__":
         'train': 0, 'valid': 0
     }
 
-    best_data = torch.load("../model_params/best_cnn_model.pth")
-    now_data = torch.load("../model_params/now_cnn_model.pth")
+    best_data = torch.load("{}/{}_best_cnn_model.pth".format(SAVE_PATH, data_name))
+    now_data = torch.load('{}/{}_now_cnn_model.pth'.format(SAVE_PATH, data_name))
     # 记录开始时间
     since = time.time()
     # 记录当前最小损失值
@@ -99,10 +99,14 @@ if __name__ == "__main__":
     # 保存模型文件的尾标
     save_num = 0
     # 保存最优正确率
+
     best_acc = best_data["best_acc"]
     optimizer.load_state_dict(now_data["optimizer"])
     model_ft.load_state_dict(best_data["state_dict"])
     now_epoch = now_data["epoch"]
+    # Lr = now_data["optimizer"]["param_groups"][0]["lr"]
+    for params in optimizer.param_groups:
+        params['lr'] = 0.001
     for epoch in range(now_epoch + 1, total_epochs):
         # 动态调整学习率
         if counter / 10 == 1:
@@ -185,7 +189,7 @@ if __name__ == "__main__":
                     }
                     # 保存训练结果
                     # save_num = 0 if save_num > 1 else save_num
-                    save_name_t = '{}.pth'.format(filename)
+                    save_name_t = "{}/{}_best_cnn_model.pth".format(SAVE_PATH, data_name)
                     torch.save(state, save_name_t)  # \033[1;31m 字体颜色：红色\033[0m
                     print("已保存最优模型，准确率:\033[1;31m {:.2f}%\033[0m，文件名：{}".format(best_acc * 100, save_name_t))
                     # save_num += 1
@@ -199,7 +203,7 @@ if __name__ == "__main__":
                 'optimizer': optimizer.state_dict(),
                 "epoch": epoch
             }
-            torch.save(now_state, "../model_params/now_cnn_model.pth")  # \033[1;31m 字体颜色：红色\033[0m
+            torch.save(now_state, "{}/{}_now_cnn_model.pth".format(SAVE_PATH, data_name))  # \033[1;31m 字体颜色：红色\033[0m
 
         print('当前学习率 : {:.5f}'.format(optimizer.param_groups[0]['lr']))
         print()
@@ -211,5 +215,5 @@ if __name__ == "__main__":
     print('最高验证集准确率: {:4f}'.format(best_acc))
     # save_num = save_num - 1
     # save_num = save_num if save_num < 0 else 1
-    save_name_t = '{}.pth'.format(filename)
+    save_name_t = "{}/{}_best_cnn_model".format(SAVE_PATH, data_name)
     print('最优模型保存在：{}'.format(save_name_t))
