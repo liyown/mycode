@@ -8,6 +8,10 @@ import torch.nn.functional as F
 # Models for federated learning #
 #################################
 # McMahan et al., 2016; 199,210 parameters
+import torchvision
+from torch.utils.data import Dataset
+
+
 class TwoNN(nn.Module):
     def __init__(self, name, in_features, num_hiddens, num_classes):
         super(TwoNN, self).__init__()
@@ -33,9 +37,11 @@ class CNN(nn.Module):
         self.name = name
         self.activation = nn.ReLU(True)
 
-        self.conv1 = nn.Conv2d(in_channels=in_channels, out_channels=hidden_channels, kernel_size=(5, 5), padding=1, stride=1, bias=False)
-        self.conv2 = nn.Conv2d(in_channels=hidden_channels, out_channels=hidden_channels * 2, kernel_size=(5, 5), padding=1, stride=1, bias=False)
-        
+        self.conv1 = nn.Conv2d(in_channels=in_channels, out_channels=hidden_channels, kernel_size=(5, 5), padding=1,
+                               stride=1, bias=False)
+        self.conv2 = nn.Conv2d(in_channels=hidden_channels, out_channels=hidden_channels * 2, kernel_size=(5, 5),
+                               padding=1, stride=1, bias=False)
+
         self.maxpool1 = nn.MaxPool2d(kernel_size=(2, 2), padding=1)
         self.maxpool2 = nn.MaxPool2d(kernel_size=(2, 2), padding=1)
         self.flatten = nn.Flatten()
@@ -62,9 +68,11 @@ class CNN2(nn.Module):
         self.name = name
         self.activation = nn.ReLU(True)
 
-        self.conv1 = nn.Conv2d(in_channels=in_channels, out_channels=hidden_channels, kernel_size=(5, 5), padding=1, stride=1, bias=False)
-        self.conv2 = nn.Conv2d(in_channels=hidden_channels, out_channels=hidden_channels * 2, kernel_size=(5, 5), padding=1, stride=1, bias=False)
-        
+        self.conv1 = nn.Conv2d(in_channels=in_channels, out_channels=hidden_channels, kernel_size=(5, 5), padding=1,
+                               stride=1, bias=False)
+        self.conv2 = nn.Conv2d(in_channels=hidden_channels, out_channels=hidden_channels * 2, kernel_size=(5, 5),
+                               padding=1, stride=1, bias=False)
+
         self.maxpool1 = nn.MaxPool2d(kernel_size=(2, 2), padding=1)
         self.maxpool2 = nn.MaxPool2d(kernel_size=(2, 2), padding=1)
         self.flatten = nn.Flatten()
@@ -79,8 +87,34 @@ class CNN2(nn.Module):
         x = self.activation(self.conv2(x))
         x = self.maxpool2(x)
         x = self.flatten(x)
-    
+
         x = self.activation(self.fc1(x))
         x = self.fc2(x)
-        
+
         return x
+
+
+
+
+
+
+
+#################
+# Dataset       #
+#################
+class CustomTensorDataset(Dataset):
+    """TensorDataset with support of transforms."""
+    def __init__(self, tensors, transform=None):
+        assert all(tensors[0].size(0) == tensor.size(0) for tensor in tensors)
+        self.tensors = tensors
+        self.transform = transform
+
+    def __getitem__(self, index):
+        x = self.tensors[0][index]
+        y = self.tensors[1][index]
+        if self.transform:
+            x = self.transform(x.numpy().astype(np.uint8))
+        return x, y
+
+    def __len__(self):
+        return self.tensors[0].size(0)
