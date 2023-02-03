@@ -1,11 +1,11 @@
 global_config:
   seed: 5959
   device: "cuda"
+---
 data_config:
   data_path: "./data/"
   dataset_name: "MNIST"
   num_shards: 200
-
   iid: True
 ---
 fed_config:
@@ -24,12 +24,13 @@ optim_config:
 init_config:
   init_type: "xavier"
   init_gain: 1.0
+---
 model_config: 
   #name: TwoNN
   #in_features: 784
   #num_hiddens: 200
   #num_classes: 10
-
+  
   name: resnet18
 #  in_channels: 1
 #  hidden_channels: 32
@@ -41,4 +42,3 @@ log_config:
   log_name:  "FL.log"
   tb_port: 5252
   tb_host: "localhost"
-
