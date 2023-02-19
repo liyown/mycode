@@ -70,8 +70,7 @@ class Client(object):
                 if self.device == "cuda": torch.cuda.empty_cache()               
         self.model.to("cpu")
 
-    def \
-            client_evaluate(self):
+    def client_evaluate(self):
         """Evaluate local model using local dataset (same as training set for convenience)."""
         self.model.eval()
         self.model.to(self.device)

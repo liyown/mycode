@@ -52,7 +52,7 @@ class Server(object):
 
         # self.model = eval(model_config["name"])(**model_config)
         resnet18 = torchvision.models.resnet18()
-        resnet18.conv1 = nn.Conv2d(1, 64, 3, 1, 1, 1, bias=False)
+        resnet18.conv1 = nn.Conv2d(3, 64, 3, 1, 1, 1, bias=False)
         resnet18.maxpool = nn.Sequential()
         resnet18.fc[0] = nn.Linear(512, 10)
         self.model = resnet18
@@ -163,7 +163,7 @@ class Server(object):
         elif dataset_name in ["MNIST"]:
             transform = torchvision.transforms.ToTensor()
 
-        else :
+        else:
             error_message = f"...dataset \"{dataset_name}\" is not supported or cannot be found in TorchVision Datasets!"
             raise AttributeError(error_message)
 
@@ -303,7 +303,7 @@ class Server(object):
         """Average the updated and transmitted parameters from each selected client."""
         message = f"[Round: {str(self._round).zfill(4)}] ...Start Aggregate updated weights of {len(sampled_client_indices)} clients...!"
         print(message)
-
+        model_B = copy.deepcopy(self.model)
         averaged_weights = OrderedDict()
         for it, idx in tqdm(enumerate(sampled_client_indices), file=sys.stdout):
             local_weights = self.clients[idx].model.state_dict()
@@ -312,6 +312,11 @@ class Server(object):
                     averaged_weights[key] = coefficients[it] * local_weights[key]
                 else:
                     averaged_weights[key] += coefficients[it] * local_weights[key]
+
+        model_B.load_state_dict(averaged_weights)
+        for key in self.model.state_dict().keys():
+            averaged_weights[key] = 0.7 * self.model.state_dict()[key] + 0.3 * model_B.state_dict()[key]
+
         self.model.load_state_dict(averaged_weights)
 
         message = f"[Round: {str(self._round).zfill(4)}] ...updated weights of {len(sampled_client_indices)} clients are successfully averaged!"
@@ -397,14 +402,15 @@ class Server(object):
             self.writer.add_scalars(
                 'Loss',
                 {
-                    f"[{self.dataset_name}]_{self.model.__class__.__name__} C_{self.fraction}, E_{self.local_epochs}, B_{self.batch_size}, IID_{self.iid}": test_loss},
+                    f"[{self.dataset_name}]_{self.model.__class__.__name__} C_{self.fraction}, E_{self.local_epochs}, B_{self.batch_size}, IID_{self.iid}_0.1"
+                    f"": test_loss},
                 self._round
             )
             self.writer.add_scalars(
 
                 'Accuracy',
                 {
-                    f"[{self.dataset_name}]_{self.model.__class__.__name__} C_{self.fraction}, E_{self.local_epochs}, B_{self.batch_size}, IID_{self.iid}": test_accuracy},
+                    f"[{self.dataset_name}]_{self.model.__class__.__name__} C_{self.fraction}, E_{self.local_epochs}, B_{self.batch_size}, IID_{self.iid}_0.1": test_accuracy},
                 self._round
             )
 
