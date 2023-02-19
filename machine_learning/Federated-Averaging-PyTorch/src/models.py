@@ -9,6 +9,7 @@ import torch.nn.functional as F
 #################################
 # McMahan et al., 2016; 199,210 parameters
 import torchvision
+from torch.nn import Sequential
 from torch.utils.data import Dataset
 
 
@@ -94,9 +95,24 @@ class CNN2(nn.Module):
         return x
 
 
+class Mayu(nn.Module):
+    def __init__(self):
+        super(Mayu, self).__init__()
+        self.model1 = Sequential(
+            nn.Conv2d(in_channels=3, out_channels=32, kernel_size=5, stride=1, padding=2),
+            nn.MaxPool2d(kernel_size=2),
+            nn.Conv2d(in_channels=32, out_channels=32, kernel_size=5, stride=1, padding=2),
+            nn.MaxPool2d(kernel_size=2),
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=5, stride=1, padding=2),
+            nn.MaxPool2d(kernel_size=2),
+            nn.Flatten(),
+            nn.Linear(in_features=1024, out_features=64),
+            nn.Linear(in_features=64, out_features=10),
+        )
 
-
-
+    def forward(self, input):
+        output = self.model1(input)
+        return output
 
 
 #################
@@ -104,6 +120,7 @@ class CNN2(nn.Module):
 #################
 class CustomTensorDataset(Dataset):
     """TensorDataset with support of transforms."""
+
     def __init__(self, tensors, transform=None):
         assert all(tensors[0].size(0) == tensor.size(0) for tensor in tensors)
         self.tensors = tensors
